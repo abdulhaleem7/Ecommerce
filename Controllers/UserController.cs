@@ -10,6 +10,6 @@ public  class UserController(IUserService userService) : Controller
     public  async Task<IActionResult> Index()
     {
        var users = await _userService.GetAllUser();
-        return View();
+        return View(users.Data);
     }
 }

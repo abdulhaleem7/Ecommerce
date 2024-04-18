@@ -89,7 +89,7 @@ public class UserService (IUserRepository userRepository, ICompanyRepository com
                 LastName = getUser.Profile.LastName,
                 Image = getUser.Profile.Image,
                 Gender = getUser.Profile.Gender,
-                CompanyName = getUser.Company.Name,
+                CompanyName = getUser.Company?.Name,
                 PhoneNumber = getUser.Profile.PhoneNumber,
                 Role = getUser.Role,
                 UserName = getUser.UserName,
@@ -103,7 +103,7 @@ public class UserService (IUserRepository userRepository, ICompanyRepository com
     public  async Task<BaseResponse<IEnumerable<UserDto>>> GetAllUser(string filter = null)
     
     {
-        var getAllUsers = await _userRepository.GetAllUsersAsync(x => x.UserName.Contains(filter) || x.Profile.FirstName.Contains(filter));
+        var getAllUsers = await _userRepository.GetAllUsersAsync(x => x.UserName.Contains(filter) || x.Profile.FirstName.Contains(filter) || filter == null);
         return new BaseResponse<IEnumerable<UserDto>>
         {
             Mesaage = "Successful",
@@ -116,7 +116,7 @@ public class UserService (IUserRepository userRepository, ICompanyRepository com
                 LastName = x.Profile.LastName,
                 Image = x.Profile.Image,
                 Gender = x.Profile.Gender,
-                CompanyName = x.Company.Name,
+                CompanyName = x.Company?.Name,
                 PhoneNumber = x.Profile.PhoneNumber,
                 Role = x.Role,
                 UserName = x.UserName,
