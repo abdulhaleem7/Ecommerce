@@ -12,6 +12,7 @@ public class UserService (IUserRepository userRepository, ICompanyRepository com
     private readonly IProfileRepository _profileRepository = profileRepository;
     public async Task<BaseResponse<UserDto>> CreateUser(UserRequestModel userRequest)
     {
+        
         var getUser = await _userRepository.GetUser(x => x.Email == userRequest.Email);
         if (getUser is not null)
         {

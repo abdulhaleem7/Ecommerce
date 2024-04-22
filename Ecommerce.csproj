@@ -25,4 +25,7 @@
   <ItemGroup>
     <Compile Remove="DTOs\ProductReauestModel.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="Views\User\CreateUser.cshtml" />
+  </ItemGroup>
 </Project>

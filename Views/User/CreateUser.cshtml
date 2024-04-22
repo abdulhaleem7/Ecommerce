@@ -1,0 +1,80 @@
+@using Ecommerce.Models.Enums
+@model Ecommerce.DTOs.UserRequestModel
+
+
+@{
+    ViewBag.Title = "Create User";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("CreateUser", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email)
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Email)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Password)
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Password)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserName)
+        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.UserName)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FirstName)
+        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.FirstName)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.LastName)
+        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.LastName)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PhoneNumber)
+        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.PhoneNumber)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Address)
+        @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Address)
+    </div>
+
+    <div class="form-group">
+       @Html.LabelFor(model => model.Gender)
+           @Html.DropDownListFor(model => model.Gender,
+                                                    new SelectList(Enum.GetValues(typeof(Gender))),
+                                                    "Select a Gender",
+                                                    new { @class = "form-control" }
+                                                );
+           @Html.ValidationMessageFor(model => model.Gender)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Role)
+            @Html.DropDownListFor(model => model.Role,
+                                                     new SelectList(Enum.GetValues(typeof(Role))),
+                                                     "Select a Role",
+                                                     new { @class = "form-control" }
+                                                 );
+            @Html.ValidationMessageFor(model => model.Role)
+    </div>
+    
+    <div class="form-group">
+        <input type="submit" value="Create User" class="btn btn-primary" />
+    </div>
+}
+
+

@@ -1,3 +1,4 @@
+using Ecommerce.DTOs;
 using Ecommerce.Interface.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,19 @@ public  class UserController(IUserService userService) : Controller
     public  async Task<IActionResult> Index()
     {
        var users = await _userService.GetAllUser();
-        return View(users.Data);
+       return View(users);
+    }
+    [HttpPost("CreateUser")]
+    public async Task<IActionResult> CreateUser(UserRequestModel requestModel)
+    {
+        var createUser = await _userService.CreateUser(requestModel);
+        return View();
+
+    }
+    
+    [HttpGet]
+    public  async Task<IActionResult> CreateUser()
+    {
+        return View();
     }
 }

@@ -1,9 +1,13 @@
 @using Ecommerce.DTOs
-@model IEnumerable<UserDto>;
+@model BaseResponse<IEnumerable<UserDto>>;
 @{
     ViewData["Title"] = "User Page";
 }
-
+<div>
+    <a asp-action="CreateUser" asp asp-controller="User">
+        create User
+    </a>
+</div>
 <h1 style="text-align: center;">List of Records</h1>
     <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
         <thead>
@@ -19,7 +23,7 @@
         @{
             var number = 1;
         }
-        @foreach (var record in Model)
+        @foreach (var record in Model.Data)
         {
             <tr>
                 <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">@number</td>
