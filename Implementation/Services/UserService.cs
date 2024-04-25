@@ -125,4 +125,51 @@ public class UserService (IUserRepository userRepository, ICompanyRepository com
 
         };
     }
+
+    public async Task<BaseResponse<UserDto>> UpdateUser(UserUpdateModel updateRequestModel, string userName)
+    {
+        var getUser =  await _userRepository.GetUser(x => x.UserName == userName);
+        if (getUser is  null)
+        {
+            return new BaseResponse<UserDto>
+            {
+                Mesaage = "User dose not exist",
+                Status = false,
+            };
+        }
+        var checkUserName =  await _userRepository.GetUser(x => x.UserName == updateRequestModel.UserName);
+        if (checkUserName is not null)
+        {
+            return new BaseResponse<UserDto>
+            {
+                Mesaage = "Username already exist, try using another username",
+                Status = false,
+            };
+        }
+
+        getUser.UserName = updateRequestModel.UserName ?? getUser.UserName;
+        await _userRepository.UpdateAsync(getUser);
+
+        var getProfile = await _profileRepository.GetProfile(x => x.Id == getUser.Id);
+
+        getProfile.Address = updateRequestModel.Address ?? getProfile.Address;
+        getProfile.FirstName = updateRequestModel.FirstName ?? getProfile.FirstName;
+        getProfile.LastName = updateRequestModel.LastName ?? getProfile.LastName;
+        getProfile.Image = updateRequestModel.Image  ?? getProfile.Image;
+        getProfile.PhoneNumber = updateRequestModel.PhoneNumber  ?? getProfile.PhoneNumber;
+        
+        await _profileRepository.UpdateAsync(getProfile);
+        await _userRepository.SaveChangesAsync();
+
+        return new BaseResponse<UserDto>
+        {
+            Mesaage = "Successful",
+            Status = true,
+
+        };
+
+    }
+
+
+    
 }

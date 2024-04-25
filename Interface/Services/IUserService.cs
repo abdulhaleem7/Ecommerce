@@ -8,4 +8,5 @@ public interface IUserService
     Task<BaseResponse<UserDto>> GetUser(string name);
     Task<BaseResponse<IEnumerable<UserDto>>> GetAllUser(string filter = null);
     
+    Task<BaseResponse<UserDto>> UpdateUser(UserUpdateModel updateRequestModel, string userName);
 }

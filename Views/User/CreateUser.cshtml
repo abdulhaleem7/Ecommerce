@@ -8,7 +8,7 @@
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("CreateUser", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "User"))
 {
     <div class="form-group">
         @Html.LabelFor(model => model.Email)
@@ -58,7 +58,7 @@
                                                     new SelectList(Enum.GetValues(typeof(Gender))),
                                                     "Select a Gender",
                                                     new { @class = "form-control" }
-                                                );
+                                                )
            @Html.ValidationMessageFor(model => model.Gender)
     </div>
 
@@ -68,7 +68,7 @@
                                                      new SelectList(Enum.GetValues(typeof(Role))),
                                                      "Select a Role",
                                                      new { @class = "form-control" }
-                                                 );
+                                                 )
             @Html.ValidationMessageFor(model => model.Role)
     </div>
     

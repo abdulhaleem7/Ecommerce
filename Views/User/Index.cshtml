@@ -4,7 +4,7 @@
     ViewData["Title"] = "User Page";
 }
 <div>
-    <a asp-action="CreateUser" asp asp-controller="User">
+    <a asp-action="CreateUser"  asp-controller="User">
         create User
     </a>
 </div>
@@ -17,6 +17,7 @@
                 <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; text-align: left;">Name</th>
                 <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; text-align: left;">Email</th>
                 <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; text-align: left;">Role</th>
+                <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; text-align: left;">Update</th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +32,11 @@
                 <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">@record.FirstName @record.LastName</td>
                 <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">@record.Email</td>
                 <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">@record.Role</td>
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: left;">
+                    <a asp-action="UpdateUser" asp-controller="User" asp-route-userName="@record.UserName">
+                        update
+                    </a>
+                </td>
             </tr>
             number++;
         }
