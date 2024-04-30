@@ -34,7 +34,9 @@ public  static class ServiceCollection
     public static IServiceCollection AddServices
         (this IServiceCollection services)
     {
-        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IUserService, UserService>()
+            .AddScoped<ICompanyService, CompanyService>();
+        
             
         return services;
 

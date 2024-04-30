@@ -13,7 +13,7 @@ public  class UserController(IUserService userService) : Controller
        var users = await _userService.GetAllUser();
        return View(users);
     }
-    [HttpPost("Create")]
+    [HttpPost("User/Create")]
     public async Task<IActionResult> Create(UserRequestModel requestModel)
     {
         var createUser = await _userService.CreateUser(requestModel);
@@ -26,13 +26,13 @@ public  class UserController(IUserService userService) : Controller
     {
         return View();
     }
-    [HttpPost("Update")]
+    [HttpPost("User/Update/{userName}")]
     public async Task<IActionResult> Update(UserUpdateModel updateModel, [FromRoute]string userName)
     {
         var updateUser = await _userService.UpdateUser(updateModel, userName);
         return RedirectToAction("Index");
     }
-    [HttpGet("UpdateUser/{userName}")]
+    [HttpGet("User/UpdateUser/{userName}")]
     public async Task<IActionResult> UpdateUser([FromRoute]string userName)
     {
         var getUser = await _userService.GetUser(userName);
