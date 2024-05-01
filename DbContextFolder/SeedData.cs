@@ -13,6 +13,7 @@ public class SeedData
         {
             var adminUser = new User
             {
+                UserName = "admin",
                 Email = "admin@gmail.com",
                 Password = BCrypt.Net.BCrypt.HashPassword("superAdmin123"), // Hash the password
                 Role = Role.SuperAdmin,
