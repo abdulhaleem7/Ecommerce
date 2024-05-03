@@ -12,7 +12,23 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 var connectString = builder.Configuration.GetConnectionString("EcommerceString");
 builder.Services.AddDataBase(connectString);
+builder.Services.AddCors(options => options.AddPolicy("Ecommerce", builder =>
+{
+    builder
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+}));
+builder.Services.AddAuthentication("Cookies") // Set the default scheme to "Cookies"
+    .AddCookie("Cookies", options =>
+    {
+       
+        options.ExpireTimeSpan = TimeSpan.FromHours(2);
+        options.LoginPath = "/Auth/Login"; // Your login path
+        options.AccessDeniedPath = "/Auth/AccessDenied"; // Path when access is denied
+    });
 builder.Services.AddRepository().AddServices();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,8 +42,10 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseSeedData();
 app.UseStaticFiles();
-
+app.UseCors("Ecommerce");
+app.UseAuthentication();
 app.UseRouting();
+
 
 app.UseAuthorization();
 
@@ -36,4 +54,5 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
 

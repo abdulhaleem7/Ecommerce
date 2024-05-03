@@ -1,0 +1,27 @@
+@model Ecommerce.DTOs.CategoryDto
+
+@{
+    ViewBag.Title = "Update Category";
+}
+
+<h2>Update User Information</h2>
+
+@using (Html.BeginForm("Update", "Category",  FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    
+   
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name)
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description)
+        @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+    </div>
+
+    
+
+    <button type="submit" class="btn btn-primary">Update</button>
+}

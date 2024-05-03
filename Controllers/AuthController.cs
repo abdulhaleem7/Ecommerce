@@ -37,7 +37,7 @@ public class AuthController(IAuthService authenticationService ) : Controller
         var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
         var authenticationProperty = new AuthenticationProperties();
         var principal = new ClaimsPrincipal(claimIdentity);
-        HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authenticationProperty);
+        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authenticationProperty);
 
         return RedirectToAction("Index","User");
         

@@ -36,7 +36,8 @@ public  static class ServiceCollection
     {
         services.AddScoped<IUserService, UserService>()
             .AddScoped<ICompanyService, CompanyService>()
-            .AddScoped<IAuthService, AuthService>();
+            .AddScoped<IAuthService, AuthService>()
+            .AddScoped<ICategoryService, CategoryService>();
         
             
         return services;
