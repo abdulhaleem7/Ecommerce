@@ -75,8 +75,8 @@ public class CategoryService(ICategoryRepository categoryRepository): ICategoryS
 
     public async  Task<BaseResponse<CategoryDto>> UpdateCategory(UpdateCategoryRequestModel updateModel)
     {
-        var updateCategory = await _categoryRepository.Get(x => x.Name == updateModel.Name);
-        if (updateCategory is null)
+        var getCategory = await _categoryRepository.Get(x => x.Name == updateModel.OldValue);
+        if (getCategory is null)
         {
             return new BaseResponse<CategoryDto>
             {
@@ -85,9 +85,9 @@ public class CategoryService(ICategoryRepository categoryRepository): ICategoryS
             };
         }
 
-        if (updateCategory.Name == updateModel.Name)
+        if (getCategory.Name != updateModel.Name)
         {
-            var checkCategory = await _categoryRepository.Get(x => x.Name == updateCategory.Name);
+            var checkCategory = await _categoryRepository.Get(x => x.Name == updateModel.Name);
             if (checkCategory is not null)
             {
                 return new BaseResponse<CategoryDto>
@@ -97,9 +97,9 @@ public class CategoryService(ICategoryRepository categoryRepository): ICategoryS
                 };
             }
         }
-        updateCategory.Name = updateModel.Name ?? updateCategory.Name;
-        updateCategory.Description = updateModel.Description ?? updateCategory.Description;
-        await _categoryRepository.UpdateAsync(updateCategory);
+        getCategory.Name = updateModel.Name ?? getCategory.Name;
+       getCategory.Description = updateModel.Description ?? getCategory.Description;
+        await _categoryRepository.UpdateAsync(getCategory);
         await _categoryRepository.SaveChangesAsync(); 
         return new BaseResponse<CategoryDto>
         {

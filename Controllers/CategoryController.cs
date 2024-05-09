@@ -26,13 +26,14 @@ public class CategoryController(ICategoryService categoryService): Controller
     {
         return View();
     }
-    [HttpPost("Category/UpdateCategory")]
-    public async Task<IActionResult> Update(UpdateCategoryRequestModel updateModel)
+    [HttpPost("Category/Update/{category}")]
+    public async Task<IActionResult> Update(UpdateCategoryRequestModel updateModel, [FromRoute] string category)
     {
-        var updateCategoryModel = await _categoryService.UpdateCategory(updateModel);
+        updateModel.OldValue = category;
+         await _categoryService.UpdateCategory(updateModel);
         return RedirectToAction("Index");
     }
-    [HttpGet("Update/{name}")]
+    [HttpGet("UpdateCategory/{name}")]
     public async Task<IActionResult> UpdateCategory([FromRoute] string name)
     {
         var getCategory = await _categoryService.GetCategory(name);
