@@ -38,8 +38,16 @@ public class AuthController(IAuthService authenticationService ) : Controller
         var authenticationProperty = new AuthenticationProperties();
         var principal = new ClaimsPrincipal(claimIdentity);
         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authenticationProperty);
-
+        if(login.Data.Role != Models.Enums.Role.Customer)
+        {
+			return RedirectToAction("AdminDashboard");
+		}
         return RedirectToAction("Index","User");
         
     }
+
+	public IActionResult AdminDashboard()
+	{
+		return View();
+	}
 }
