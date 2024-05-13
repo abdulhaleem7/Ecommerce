@@ -21,13 +21,13 @@ License: For each use you must have a valid license purchased only from above li
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 	<!--end::Fonts-->
 	<!--begin::Vendor Stylesheets(used for this page only)-->
-	<link href="~/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
-	<link href="~/assets/plugins/custom/vis-timeline/vis-timeline.bundle.css" rel="stylesheet" type="text/css" />
 	<!--end::Vendor Stylesheets-->
 	<!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
 	<link href="~/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
 	<link href="~/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 	<!--end::Global Stylesheets Bundle-->
+
+	<link href="~/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 	<script>// Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }</script>
 </head>
 <!--end::Head-->
@@ -102,13 +102,9 @@ License: For each use you must have a valid license purchased only from above li
 					<div class="d-flex flex-column flex-column-fluid">
 						<!--begin::Toolbar-->
 						<!--end::Toolbar-->
+						@RenderBody()
 						<!--begin::Content-->
-						<div id="kt_app_content" class="app-content flex-column-fluid">
-							<!--begin::Content container-->
-							@RenderBody()
-
-							<!--end::Content container-->
-						</div>
+						
 						<!--end::Content-->
 					</div>
 					<!--end::Content wrapper-->
@@ -127,17 +123,14 @@ License: For each use you must have a valid license purchased only from above li
 	<!--begin::Activities drawer-->
 	<!--end::Modals-->
 	<!--begin::Javascript-->
-	<script>var hostUrl = "assets/";</script>
 	<script src="~/assets/plugins/global/plugins.bundle.js"></script>
 	<script src="~/assets/js/scripts.bundle.js"></script>
-	<!--end::Global Javascript Bundle-->
-	<!--begin::Vendors Javascript(used for this page only)-->
-	<script src="~/assets/plugins/custom/datatables/datatables.bundle.js"></script>
-	<script src="~/assets/plugins/custom/vis-timeline/vis-timeline.bundle.js"></script>
 
-	<script src="~/assets/js/widgets.bundle.js"></script>
-	<script src="~/assets/js/custom/widgets.js"></script>
-	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="~/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+	<!--end::Global Javascript Bundle-->
+	
+		<!--begin::Custom Javascript(used for this page only)-->
+	<!--begin::Vendors Javascript(used for this page only)-->
 	@await RenderSectionAsync("Scripts", required: false)
 
 	<!--end::Vendors Javascript-->

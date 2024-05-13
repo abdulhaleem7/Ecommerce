@@ -1,0 +1,40 @@
+﻿@using Ecommerce.DTOs
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" asp-append-version="true"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" asp-append-version="true"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" asp-append-version="true" />
+<script type="text/javascript">
+    toastr.options.showMethod = 'slideDown';
+    toastr.options.hideMethod = 'slideUp';
+    toastr.options.closeMethod = 'slideUp';
+    toastr.options.showDuration = 300;//time for it to load to the screen
+    toastr.options.hideDuration = 1000;//time for it to clear from the screen
+    toastr.options.timeOut = 10000;
+    toastr.options.extendedTimeOut = 6000;
+    // toastr.options.showDuration = 'slideUp';
+</script>
+
+@{
+    if (TempData.ContainsKey(AppConstant.Success))
+    {
+        <script type="text/javascript">
+            toastr.success('@TempData[AppConstant.Success]')
+        </script>
+        TempData.Clear();
+    }
+    else if (TempData.ContainsKey(AppConstant.Error))
+    {
+        <script type="text/javascript">
+            toastr.error('@TempData[AppConstant.Error]')
+        </script>
+        TempData.Clear();
+    }
+    else if (TempData.ContainsKey("warn"))
+    {
+        <script type="text/javascript">
+            toastr.warning('@TempData["warn"]')
+        </script>
+        TempData.Clear();
+    }
+}
+
+

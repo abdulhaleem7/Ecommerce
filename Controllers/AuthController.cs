@@ -22,6 +22,7 @@ public class AuthController(IAuthService authenticationService ) : Controller
         var login = await _authenticationService.Login(requestModel);
         if (login.Status.Equals(false))
         {
+            TempData[AppConstant.Error] = login.Mesaage;
             return RedirectToAction("Login");
         }
 
@@ -40,8 +41,10 @@ public class AuthController(IAuthService authenticationService ) : Controller
         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authenticationProperty);
         if(login.Data.Role != Models.Enums.Role.Customer)
         {
+            TempData[AppConstant.Success] = login.Mesaage;
 			return RedirectToAction("AdminDashboard");
 		}
+        TempData[AppConstant.Success] = login.Mesaage;
         return RedirectToAction("Index","User");
         
     }

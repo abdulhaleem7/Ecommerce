@@ -1,0 +1,49 @@
+﻿@using Ecommerce.DTOs
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" asp-append-version="true"> </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" asp-append-version="true"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" asp-append-version="true" />
+
+@{
+    if (TempData.ContainsKey(AppConstant.Success))
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'success',
+                title: '@TempData[AppConstant.Success]',
+                text: '@TempData[AppConstant.Success]',
+            });
+        </script>
+    }
+    if (TempData[AppConstant.Error] != null)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: '@TempData[AppConstant.Error]',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                }
+            })
+        </script>
+    }
+    // if (TempData["fail"] != null)
+    // {
+    //     <script type="text/javascript">
+    //         toastr.error('@TempData["fail"]')
+    //     </script>
+
+    // }
+    // if (TempData["info"] != null)
+    // {
+    //     <script type="text/javascript">
+    //         toastr.info('@TempData["info"]')
+    //     </script>
+
+    // }
+}
+
+
