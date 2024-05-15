@@ -1,9 +1,10 @@
 using Ecommerce.DTOs;
 using Ecommerce.Interface.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.Controllers;
-
+[Authorize(Roles = "SuperAdmin,Manager")]
 public  class UserController(IUserService userService) : Controller
 {
     private readonly IUserService _userService = userService;
