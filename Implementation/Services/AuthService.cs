@@ -10,14 +10,14 @@ public class AuthService (IUserRepository userRepository): IAuthService
     public async Task<BaseResponse<LoginDto>> Login(LoginRequestModel requestModel)
     {
         var getUser = await _userRepository.GetUser(x => x.UserName == requestModel.UserName);
-        // if (getUser is null)
-        // {
-        //     return new BaseResponse<LoginDto>
-        //     {
-        //         Mesaage = "incorrect password or username",
-        //         Status = false
-        //     };
-        // }
+        if (getUser.Equals(null))
+        {
+            return new BaseResponse<LoginDto>
+            {
+                Mesaage = "incorrect password or username",
+                Status = false
+            };
+        }
 
         var verifyPassword = BCrypt.Net.BCrypt.Verify(requestModel.PassWord, getUser.Password);
         if (!verifyPassword || getUser.Equals(null))

@@ -1,44 +1,96 @@
 @model Ecommerce.DTOs.UserDto
-
 @{
-    ViewBag.Title = "Update User";
+
 }
-
-<h2>Update User Information</h2>
-
-@using (Html.BeginForm("Update", "User", new {userName = Model.UserName}, FormMethod.Post))
+@using (Html.BeginForm("Update", "User", new { userName = Model.UserName }, FormMethod.Post))
 {
-    @Html.AntiForgeryToken()
+	<div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10">
+		<!--begin::Order details-->
+		<div class="card card-flush py-4">
+			<!--end::Card header-->
+		</div>
+		<!--end::Order details-->
+		<!--begin::Order details-->
+		<div class="card card-flush py-4">
+			<!--begin::Card header-->
+			<div class="card-header">
+				<div class="card-title">
+					<h2>Delivery Details</h2>
+				</div>
+			</div>
+			<!--end::Card header-->
+			<!--begin::Card body-->
+			<div class="card-body pt-0">
+				<!--begin::Billing address-->
+				<div class="d-flex flex-column gap-5 gap-md-7">
+					<!--begin::Title-->
+					<div class="fs-3 fw-bold mb-n2">Billing Address</div>
+					<!--end::Title-->
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.UserName)
-        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
-    </div>
+					<!--begin::Input group-->
+					<div class="d-flex flex-column flex-md-row gap-5">
+						<div class="fv-row flex-row-fluid">
+							<!--begin::Label-->
+							<div class="form-group">
+								@Html.LabelFor(model => model.UserName)
+								@Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
+							</div>
+						</div>
+						<div class="flex-row-fluid">
+							<!--begin::Label-->
+							<div class="form-group">
+								@Html.LabelFor(model => model.FirstName)
+								@Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+							</div>
+							<!--end::Input-->
+						</div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.FirstName)
-        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
-    </div>
+					</div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.LastName)
-        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
-    </div>
+					<div class="d-flex flex-column flex-md-row gap-5">
+						<div class="fv-row flex-row-fluid">
+							<div class="form-group">
+								@Html.LabelFor(model => model.LastName)
+								@Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+							</div>
+						</div>
+						<div class="flex-row-fluid">
+							<div class="form-group">
+								@Html.LabelFor(model => model.PhoneNumber)
+								@Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
+							</div>
+						</div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Image)
-        @Html.TextBoxFor(model => model.Image, new { @class = "form-control" })
-    </div>
+					</div>
+					<div class="d-flex flex-column flex-md-row gap-5">
+						<div class="fv-row flex-row-fluid">
+							<div class="form-group">
+								@Html.LabelFor(model => model.Address)
+								@Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+							</div>
+						</div>
+						<div class="flex-row-fluid">
+							
+						</div>
+					</div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.PhoneNumber)
-        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Address)
-        @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
-    </div>
-
-    <button type="submit" class="btn btn-primary">Update</button>
+				</div>
+				<!--end::Billing address-->
+			</div>
+			<!--end::Card body-->
+		</div>
+		<!--end::Order details-->
+		<div class="d-flex justify-content-end">
+			<!--begin::Button-->
+			<a href="" id="kt_ecommerce_edit_order_cancel" class="btn btn-light me-5">Cancel</a>
+			<!--end::Button-->
+			<!--begin::Button-->
+			<button type="submit" id="kt_ecommerce_edit_order_submit" class="btn btn-primary">
+				<span class="indicator-label">Save Changes</span>
+				<span class="indicator-progress">Please wait...
+					<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+			</button>
+			<!--end::Button-->
+		</div>
+	</div>
 }

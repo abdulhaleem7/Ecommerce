@@ -117,7 +117,7 @@ public class UserService (IUserRepository userRepository, ICompanyRepository com
                 LastName = x.Profile.LastName,
                 Image = x.Profile.Image,
                 Gender = x.Profile.Gender,
-                CompanyName = x.Company?.Name,
+                CompanyName = x.Company?.Name == null ? "null" : x.Company?.Name,
                 PhoneNumber = x.Profile.PhoneNumber,
                 Role = x.Role,
                 UserName = x.UserName,

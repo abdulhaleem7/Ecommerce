@@ -28,6 +28,13 @@ public class CompanyController(ICompanyService companyService) : Controller
     public async Task<IActionResult> Update(CompanyUpdateModel updateModel)
     {
         var updateCompany = await _companyService.UpdateCompany(updateModel);
+        if (!updateCompany.Status)
+        {
+            TempData[AppConstant.Error] = updateCompany.Mesaage;
+            return RedirectToAction("index");
+        }
+
+        TempData[AppConstant.Success] = updateCompany.Mesaage;
         return RedirectToAction("Index");
     }
     [HttpGet("UpdateCompany/{id:guid}")]

@@ -1,5 +1,6 @@
 using Ecommerce.Models.Entities;
 using Ecommerce.Models.Enums;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Ecommerce.DTOs;
 
@@ -46,7 +47,7 @@ public class UserUpdateModel
     public string? PhoneNumber { get; set; }
     
     public string? Address { get; set; }
-    
+    public MultiSelectList Comapnies { get; set; }
     
 
 }
