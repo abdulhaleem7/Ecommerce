@@ -1,4 +1,5 @@
 using Ecommerce.DbContextFolder;
+using Ecommerce.FileStorages;
 using Ecommerce.Implementation.Repositories;
 using Ecommerce.Implementation.Services;
 using Ecommerce.Interface.Repositories;
@@ -37,7 +38,10 @@ public  static class ServiceCollection
         services.AddScoped<IUserService, UserService>()
             .AddScoped<ICompanyService, CompanyService>()
             .AddScoped<IAuthService, AuthService>()
-            .AddScoped<ICategoryService, CategoryService>();
+            .AddScoped<ICategoryService, CategoryService>()
+            .AddScoped<IProductService, ProductService>()
+            .AddScoped<IFileStorage, FileStorage>();
+        
         
             
         return services;

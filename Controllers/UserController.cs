@@ -14,7 +14,6 @@ public  class UserController(IUserService userService,ICompanyService companySer
     public  async Task<IActionResult> Index()
     {
        var rec = await _companyService.GetAllCompany();
-
        ViewBag.Companies = new SelectList(rec.Data, "Id", "Name");
        var users = await _userService.GetAllUser();
        return View(users);

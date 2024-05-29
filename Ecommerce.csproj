@@ -16,7 +16,6 @@
     <Compile Remove="wwwroot\assets\media\flags\**" />
     <Compile Remove="wwwroot\assets\media\icons\**" />
     <Compile Remove="wwwroot\assets\media\illustrations\**" />
-    <Compile Remove="wwwroot\assets\media\svg\**" />
     <Compile Remove="wwwroot\assets\plugins\custom\ckeditor\**" />
     <Compile Remove="wwwroot\assets\plugins\custom\cookiealert\**" />
     <Compile Remove="wwwroot\assets\plugins\custom\cropper\**" />
@@ -37,7 +36,6 @@
     <Content Remove="wwwroot\assets\media\flags\**" />
     <Content Remove="wwwroot\assets\media\icons\**" />
     <Content Remove="wwwroot\assets\media\illustrations\**" />
-    <Content Remove="wwwroot\assets\media\svg\**" />
     <Content Remove="wwwroot\assets\plugins\custom\ckeditor\**" />
     <Content Remove="wwwroot\assets\plugins\custom\cookiealert\**" />
     <Content Remove="wwwroot\assets\plugins\custom\cropper\**" />
@@ -58,7 +56,6 @@
     <EmbeddedResource Remove="wwwroot\assets\media\flags\**" />
     <EmbeddedResource Remove="wwwroot\assets\media\icons\**" />
     <EmbeddedResource Remove="wwwroot\assets\media\illustrations\**" />
-    <EmbeddedResource Remove="wwwroot\assets\media\svg\**" />
     <EmbeddedResource Remove="wwwroot\assets\plugins\custom\ckeditor\**" />
     <EmbeddedResource Remove="wwwroot\assets\plugins\custom\cookiealert\**" />
     <EmbeddedResource Remove="wwwroot\assets\plugins\custom\cropper\**" />
@@ -79,7 +76,6 @@
     <None Remove="wwwroot\assets\media\flags\**" />
     <None Remove="wwwroot\assets\media\icons\**" />
     <None Remove="wwwroot\assets\media\illustrations\**" />
-    <None Remove="wwwroot\assets\media\svg\**" />
     <None Remove="wwwroot\assets\plugins\custom\ckeditor\**" />
     <None Remove="wwwroot\assets\plugins\custom\cookiealert\**" />
     <None Remove="wwwroot\assets\plugins\custom\cropper\**" />

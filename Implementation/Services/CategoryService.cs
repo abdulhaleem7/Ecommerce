@@ -67,6 +67,7 @@ public class CategoryService(ICategoryRepository categoryRepository): ICategoryS
             Status = true,
             Data = getAllCategories.Select(x => new CategoryDto()
             {
+                Id = x.Id,
                 Name = x.Name,
                 Description = x.Description,
             }).ToList(),
