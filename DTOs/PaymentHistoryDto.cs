@@ -5,6 +5,7 @@ namespace Ecommerce.DTOs;
 
 public class PaymentHistoryDto
 {
+    public Guid CartId { get; set; }
     public Guid? CustomerId { get; set; }
     public string ReferenceNumber { get; set; }
     public decimal Amount { get; set; }
@@ -14,7 +15,7 @@ public class PaymentHistoryDto
 
 public class PaymentHistoryRequestModel
 {
-    
+    public Guid CartId { get; set; }
     public string ReferenceNumber { get; set; }
     public Guid? CustomerId { get; set; }
     public decimal CartTotalAmount { get; set; }

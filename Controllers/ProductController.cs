@@ -38,7 +38,7 @@ public class ProductController(IProductService productService,
         var rec = await _companyService.GetAllCompany();
         ViewBag.Companies = new SelectList(rec.Data, "Id", "Name");
         var category = await _categoryService.GetAllCategories();
-        ViewBag.Categories = new SelectList(rec.Data, "Id", "Name");
+        ViewBag.Categories = new SelectList(category.Data, "Id", "Name");
         
         return View();
     }
