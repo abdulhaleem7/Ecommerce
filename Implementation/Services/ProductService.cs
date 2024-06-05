@@ -3,6 +3,7 @@ using Ecommerce.DTOs;
 using Ecommerce.Interface.Repositories;
 using Ecommerce.Interface.Services;
 using Ecommerce.Models.Entities;
+using Ecommerce.Models.Enums;
 
 namespace Ecommerce.Implementation.Services;
 
@@ -22,12 +23,7 @@ public class ProductService (IProductRepository productRepository, ICategoryRepo
                 Status = false,
             };
         }
-        return new BaseResponse<ProductDto>
-        {
-            Mesaage = "category exists",
-            Status = true,
-        };
-        
+      
         var getCompany = await _companyRepository.Get(x => x.Id == productRequestModel.CompanyId);
         if (getCompany is null)
         {
@@ -37,11 +33,7 @@ public class ProductService (IProductRepository productRepository, ICategoryRepo
                 Status = false,
             };
         }
-        return new BaseResponse<ProductDto>
-        {
-            Mesaage = "company exists",
-            Status = true,
-        };
+       
         var createProduct = new Product
         {
             DisCount = productRequestModel.DisCount,
@@ -51,7 +43,10 @@ public class ProductService (IProductRepository productRepository, ICategoryRepo
             Description = productRequestModel.Description,
             Price = productRequestModel.Price,
             QuantityAvailable = productRequestModel.QuantityAvailable,
-            ProductStatus = productRequestModel.ProductStatus,
+            ProductStatus = ProductStatus.Pending,
+            Company = getCompany,
+            Category = getCategory,
+            Image = productRequestModel.Image
         };
         await _productRepository.CreateAsync(createProduct);
         await _productRepository.SaveChangesAsync();
@@ -88,7 +83,8 @@ public class ProductService (IProductRepository productRepository, ICategoryRepo
                 Price = getProduct.Price,
                 QuantityAvailable = getProduct.QuantityAvailable,
                 ProductStatus = getProduct.ProductStatus,
-
+                Id = getProduct.Id,
+                Image = getProduct.Image
             },
         };
 
@@ -120,14 +116,14 @@ public class ProductService (IProductRepository productRepository, ICategoryRepo
                 Price = getProduct.Price,
                 QuantityAvailable = getProduct.QuantityAvailable,
                 ProductStatus = getProduct.ProductStatus,
-
+                Image = getProduct.Image
             },
         };
     }
 
     public  async Task<BaseResponse<IEnumerable<ProductDto>>> GetAllProduct(string filter = null)
     {
-        var getAllProducts = await _productRepository.GetAllAsync(x => x.Name.Contains(filter) || filter == null);
+        var getAllProducts = await _productRepository.GetAllProductAsync(x => x.Name.Contains(filter) || filter == null);
         return new BaseResponse<IEnumerable<ProductDto>>
         {
             Mesaage = "successful",
@@ -142,7 +138,7 @@ public class ProductService (IProductRepository productRepository, ICategoryRepo
                 Price = x.Price,
                 QuantityAvailable = x.QuantityAvailable,
                 ProductStatus = x.ProductStatus,
-                
+                Image = x.Image
             }).ToList(),
         };
     }
@@ -174,8 +170,8 @@ public class ProductService (IProductRepository productRepository, ICategoryRepo
             getProduct.Name = updateRequestModel.Name ?? getProduct.Name;
             getProduct.Description = updateRequestModel.Description ?? getProduct.Description;
             getProduct.Price = updateRequestModel.Price ;
-            getProduct.QuantityAvailable = updateRequestModel.QuantityAvailable ;
-            getProduct.ProductStatus = updateRequestModel.ProductStatus ;
+            getProduct.QuantityAvailable = updateRequestModel.QuantityAvailable;
+            getProduct.ProductStatus = updateRequestModel.ProductStatus;
             await _productRepository.UpdateAsync(getProduct);
             await _productRepository.SaveChangesAsync();
 

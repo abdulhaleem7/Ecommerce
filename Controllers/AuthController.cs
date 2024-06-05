@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using Ecommerce.DTOs;
 using Ecommerce.Interface.Services;
+using Ecommerce.Models.Enums;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -40,16 +41,16 @@ public class AuthController(IAuthService authenticationService) : Controller
 		var authenticationProperty = new AuthenticationProperties();
 		var principal = new ClaimsPrincipal(claimIdentity);
 		await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authenticationProperty);
-		if (login.Data.Role != Models.Enums.Role.Customer)
+		if (login.Data.Role != Role.Customer)
 		{
 			TempData[AppConstant.Success] = login.Mesaage;
-			return RedirectToAction("AdminDashboard");
+			return RedirectToAction("AdminDashboard","Auth");
 		}
 		TempData[AppConstant.Success] = login.Mesaage;
 		return RedirectToAction("Index", "User");
 
 	}
-	[Authorize(Roles = "SuperAdmin,Manager")]
+	[Authorize(Roles = "SuperAdmin")]
 	public IActionResult AdminDashboard()
 	{
 		return View();

@@ -20,10 +20,9 @@ public class ProductRepository(ApplicationDbContext applicationDbContext) :Repos
 
     public async  Task<IEnumerable<Product>> GetAllProductAsync(Expression<Func<Product, bool>> expression)
     {
-        var entities = _applicationDbContext.Products
+        return await _applicationDbContext.Products
             .Include(x => x.Category)
             .Include(x => x.Company)
-            .Where(expression);
-        return await entities.ToListAsync();
+            .Where(expression).ToListAsync();
     }
 }
