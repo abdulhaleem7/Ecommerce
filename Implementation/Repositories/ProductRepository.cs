@@ -18,7 +18,7 @@ public class ProductRepository(ApplicationDbContext applicationDbContext) :Repos
         return await entity;
     }
 
-    public async  Task<IEnumerable<Product>> GetAllProductAsync(Expression<Func<Product, bool>> expression)
+    public async Task<IList<Product>> GetAllProductAsync(Expression<Func<Product, bool>> expression)
     {
         return await _applicationDbContext.Products
             .Include(x => x.Category)

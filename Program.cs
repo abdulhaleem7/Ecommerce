@@ -43,9 +43,9 @@ app.UseHttpsRedirection();
 app.UseSeedData();
 app.UseStaticFiles();
 app.UseCors("Ecommerce");
-app.UseAuthentication();
 app.UseRouting();
 
+app.UseAuthentication();
 
 app.UseAuthorization();
 

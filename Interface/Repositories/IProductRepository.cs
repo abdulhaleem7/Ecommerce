@@ -6,5 +6,5 @@ namespace Ecommerce.Interface.Repositories;
 public interface IProductRepository : IRepository<Product>
 {
     Task<Product> GetProduct(Expression<Func<Product, bool>> expression);
-    Task<IEnumerable<Product>> GetAllProductAsync(Expression<Func<Product, bool>> expression);
+    Task<IList<Product>> GetAllProductAsync(Expression<Func<Product, bool>> expression);
 }
