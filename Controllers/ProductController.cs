@@ -22,6 +22,12 @@ public class ProductController(IProductService productService,
         var getAllProduct = await _productService.GetAllProduct();
         return View(getAllProduct);
     }
+    
+    
+    public async Task<IActionResult> CustomerProducts()
+    {
+        return View();
+    }
     [HttpPost("Product/CreateProduct")]
     public async Task<IActionResult> CreateProduct(IFormFile file ,ProductRequestModel requestModel)
     {

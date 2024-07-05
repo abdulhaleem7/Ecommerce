@@ -4,7 +4,7 @@ using Ecommerce.Interface.Services;
 
 namespace Ecommerce.Implementation.Services;
 
-public class CustomerService(ICustomerRepository customerRepository) :ICustomerservice
+public class CustomerService(ICustomerRepository customerRepository) :ICustomerService
 {
     private readonly ICustomerRepository _customerRepository = customerRepository;
 

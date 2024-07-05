@@ -9,12 +9,18 @@ using Microsoft.AspNetCore.Mvc;
 
 
 namespace Ecommerce.Controllers;
-public class AuthController(IAuthService authenticationService) : Controller
+public class AuthController(IAuthService authenticationService,IUserService userService) : Controller
 {
 	private readonly IAuthService _authenticationService = authenticationService;
+	private readonly IUserService _userService  = userService;
 	// GET
 	[AllowAnonymous]
 	public IActionResult Login()
+	{
+		return View();
+	}
+	[AllowAnonymous]
+	public IActionResult DefaultDashBoard()
 	{
 		return View();
 	}
@@ -47,7 +53,7 @@ public class AuthController(IAuthService authenticationService) : Controller
 			return RedirectToAction("AdminDashboard","Auth");
 		}
 		TempData[AppConstant.Success] = login.Mesaage;
-		return RedirectToAction("Index", "User");
+		return RedirectToAction("DefaultDashBoard");
 
 	}
 	[Authorize(Roles = "SuperAdmin")]
@@ -58,6 +64,19 @@ public class AuthController(IAuthService authenticationService) : Controller
 	public async Task<IActionResult> SignOutUser()
 	{
 		await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+		return RedirectToAction("Login");
+	}
+
+	[AllowAnonymous]
+	public async Task<IActionResult> SignUp()
+	{
+		return View();
+	}
+
+	public async Task<IActionResult> SignUpUser(UserRequestModel signUpModel)
+	{
+		signUpModel.Role = Role.Customer;
+		var signUp = await _userService.CreateUser(signUpModel);
 		return RedirectToAction("Login");
 	}
 }

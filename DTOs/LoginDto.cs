@@ -18,3 +18,11 @@ public class LoginRequestModel
     public string UserName { get; set; }
     public string PassWord { get; set; }
 }
+
+public class SignUp
+{
+    public string Email { get; set; }
+    public string PassWord { get; set; }
+    public string RepeatPassword { get; set; }
+}
+    

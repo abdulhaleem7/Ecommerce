@@ -40,6 +40,7 @@ public  static class ServiceCollection
             .AddScoped<IAuthService, AuthService>()
             .AddScoped<ICategoryService, CategoryService>()
             .AddScoped<IProductService, ProductService>()
+            .AddScoped<ICustomerService, CustomerService>()
             .AddScoped<IFileStorage, FileStorage>();
         
         

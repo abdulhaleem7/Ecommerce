@@ -235,7 +235,11 @@ ViewData["Title"] = "User Page";
         <select class="form-control form-control-solid" name="role">
             @foreach (var value in Enum.GetValues(typeof(Role)))
             {
-                <option value="@value">@value</option>
+                @if (value.ToString().ToLower() is not "customer")
+                {
+                    <option value="@value">@value</option>
+                }
+                
             }
         </select>
         <!--end::Input-->

@@ -1,4 +1,7 @@
-﻿<div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="225px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
+﻿<div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar"
+	 data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="225px"
+	 data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle"
+	 xmlns="http://www.w3.org/1999/html">
 	<!--begin::Logo-->
 	<div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
 		<!--begin::Logo image-->
@@ -65,6 +68,16 @@
 									<span class="menu-title">Default</span>
 								</a>
 								<!--end:Menu link-->
+							</div>
+							<div>
+							<!--begin:Menu link-->
+                                <a class="menu-link" asp-controller="Auth" asp-action="DefaultDashBoard">
+                                	<span class="menu-bullet">
+                                		<span class="bullet bullet-dot"></span>
+                                	</span>
+                                	<span class="menu-title">Purchase</span>
+                                </a>
+                                <!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
 						</div>

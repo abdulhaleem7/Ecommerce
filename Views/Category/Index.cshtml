@@ -20,7 +20,7 @@
 <span class="path1"></span>
 <span class="path2"></span>
 </i>
-<input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="Search category" />
+<input type="text" data-kt-category-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="Search category" />
 </div>
 <!--end::Search-->
 </div>
@@ -192,27 +192,14 @@ add
 
 @section scripts {
 <script>
-$(document).ready(function () {
-$('#kt_customers_table').DataTable();
-$('#genderSelect').select2();
-$('#togglePassword').click(function () {
-var passwordInput = $('#passwordInput');
-var icon = $(this).find('i');
-if (passwordInput.attr('type') === 'password') {
-passwordInput.attr('type', 'text');
-icon.removeClass('fas fa-eye').addClass('fas fa-eye-slash');
-} else {
-passwordInput.attr('type', 'password');
-icon.removeClass('fas fa-eye-slash').addClass('fas fa-eye');
-}
-});
-});
-</script>
-<script>
-function closeModal() {
-// Close the modal here, you can use any method provided by your modal library
-// For example, if you are using Bootstrap modal, you can do:
-$('#kt_modal_add_customer').modal('hide');
-}
-</script>
+                    $(document).ready(function() {
+                        // Initialize DataTable
+                        var table = $('#kt_customers_table').DataTable();
+            
+                        // Custom search input functionality
+                        $('[data-kt-category-table-filter="search"]').on('keyup', function() {
+                            table.search(this.value).draw();
+                        });
+                    });
+                </script>
 }
