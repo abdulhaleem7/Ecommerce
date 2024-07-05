@@ -10,7 +10,5 @@ public interface IProductService
     Task<BaseResponse<ProductDto>> GetProductByName(string name);
     Task<BaseResponse<IEnumerable<ProductDto>>> GetAllProduct(string filter = null);
     Task<BaseResponse<ProductDto>> UpdateProduct(UpdateRequestModel updateRequestModel);
-
-
-
+	Task<PageBaseResponse<IList<ProductDto>>> GetPaginatedProduct(int page, int pageSize, string filter = null);
 }

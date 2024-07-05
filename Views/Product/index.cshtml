@@ -1,5 +1,13 @@
 @using Ecommerce.DTOs
 @model BaseResponse<IEnumerable<ProductDto>>;
+
+@functions {
+    public string TruncateDescription(string description, int maxLength)
+    {
+        if (string.IsNullOrEmpty(description)) return description;
+        return description.Length <= maxLength ? description : description.Substring(0, maxLength) + "...";
+    }
+}
 <!--begin::Content wrapper-->
 <!--begin::Toolbar-->
 <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
@@ -130,7 +138,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a class="text-gray-800 text-hover-primary mb-1">@item.Description</a>
+                                        <a class="text-gray-800 text-hover-primary mb-1">@TruncateDescription(item.Description, 50)</a>
                                 </td>
                                 <td>
                                     <a class="text-gray-600 text-hover-primary mb-1">@item.QuantityAvailable</a>
