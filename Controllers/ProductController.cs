@@ -66,7 +66,7 @@ public class ProductController(IProductService productService,
     [HttpGet("Update/{id:guid}")]
     public async Task<IActionResult> Update([FromRoute] Guid id)
     {
-        var updateProduct = _productService.GetProduct(id);
-        return View(updateProduct);
+        var res = await _productService.GetProduct(id);
+        return View(res.Data);
     }
 }
