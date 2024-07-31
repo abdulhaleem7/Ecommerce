@@ -4,6 +4,8 @@ using Ecommerce.Implementation.Repositories;
 using Ecommerce.Implementation.Services;
 using Ecommerce.Interface.Repositories;
 using Ecommerce.Interface.Services;
+using Ecommerce.Models.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce;
@@ -32,6 +34,8 @@ public  static class ServiceCollection
         return services;
 
     }
+
+
     public static IServiceCollection AddServices
         (this IServiceCollection services)
     {

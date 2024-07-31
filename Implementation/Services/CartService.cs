@@ -12,7 +12,8 @@ public class CartService(ICartRepository cartRepository, IProductRepository prod
     private readonly IProductRepository _productRepository = productRepository;
     public  async Task<BaseResponse<CartDto>> CreateCart(CartRequestModel cartRequestModel)
     {
-        var createCart = await _cartRepository.GetCart(x => x.Id == cartRequestModel.id);
+        var createCart = await _cartRepository.GetCart(x => x.Id == cartRequestModel.ProductId);
+        
         if (createCart is not null)
         {
             return new BaseResponse<CartDto>

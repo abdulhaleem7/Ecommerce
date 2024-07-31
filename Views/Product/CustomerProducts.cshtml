@@ -119,15 +119,15 @@
 @section scripts {
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
-
         function truncateDescription(description, maxLength) {
             if (description.length > maxLength) {
                 return description.substring(0, maxLength) + '...';
             }
             return description;
         }
+
         function fetchProducts(page) {
-            const filter = { page: page, pageSize: 10 };
+            const filter = { page: page, pageSize: 3 };
             const url = '@Url.Action("GetAllProduct", "ProductApi")' + '?' + $.param(filter);
             $.ajax({
                 url: url,
@@ -138,22 +138,24 @@
                     response.products.forEach(product => {
                         const imageUrl = '@Url.Content("~/product/")' + product.image;
                         const truncatedDescription = truncateDescription(product.description, 50);
+                        const productDetailsUrl = '/CustomerProductDetails/' + product.id; // Adjust this URL to your details action
                         console.log(imageUrl)
                         $('#product-list').append(`
                                 <div class="col-md-6 col-lg-6 col-xl-4">
-                                    <div class="rounded position-relative fruite-item">
-                                        <div class="fruite-img">
-                                         <img src="${imageUrl}" class="img-fluid w-100 rounded-top" alt="" style="width: 180px; height: 300px;">
-                                        </div>
-                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">${product.categoryName}</div>
-                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                            <h4>${product.name}</h4>
-                                            <p>${truncatedDescription}</p>
-                                            <div class="d-flex justify-content-between flex-lg-wrap">
-                                                <p class="text-dark fs-5 fw-bold mb-0">$${product.price} / kg</p>
-                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                    <div class="rounded position-relative fruite-item" style="border: 2px solid green;">
+                                        <a href="${productDetailsUrl}" class="text-decoration-none text-dark">
+                                            <div class="fruite-img">
+                                                <img src="${imageUrl}" class="img-fluid w-100 rounded-top" alt="" style="width: 180px; height: 300px;">
                                             </div>
-                                        </div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">${product.categoryName}</div>
+                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                <h4>${product.name}</h4>
+                                                <p>${truncatedDescription}</p>
+                                                <div class="d-flex justify-content-between flex-lg-wrap">
+                                                    <p class="text-dark fs-5 fw-bold mb-0">$${product.price}</p>
+                                                </div>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
                             `);
@@ -176,4 +178,5 @@
             fetchProducts(1);
         });
     </script>
+
 }

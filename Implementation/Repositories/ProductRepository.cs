@@ -42,6 +42,7 @@ public class ProductRepository(ApplicationDbContext applicationDbContext) :Repos
 			Status = true,
 			Data = result.Select(x => new ProductDto()
 			{
+				Id = x.Id,
 				DisCount = x.DisCount,
 				Name = x.Name,
 				CategoryName = x.Category.Name,
@@ -52,6 +53,7 @@ public class ProductRepository(ApplicationDbContext applicationDbContext) :Repos
 				ProductStatus = x.ProductStatus,
 				Image = x.Image
 			}).ToList(),
+			TotalCount = totalProduct,
 			TotalPage = (int)Math.Ceiling((double)totalProduct / pageSize)
 	};
 	}

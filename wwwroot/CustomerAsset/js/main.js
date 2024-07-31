@@ -134,17 +134,40 @@
     // Product Quantity
     $('.quantity button').on('click', function () {
         var button = $(this);
-        var oldValue = button.parent().parent().find('input').val();
+        var input = button.parent().parent().find('input');
+        var oldValue = parseFloat(input.val());
+        var minVal = parseFloat(input.attr('min'));
+        var maxVal = parseFloat(input.attr('max'));
+        var newVal;
+        console.log("newval", newVal);
+        console.log("minVal", minVal);
+        console.log("maxVal", maxVal);
         if (button.hasClass('btn-plus')) {
-            var newVal = parseFloat(oldValue) + 1;
+            newVal = oldValue + 1;
+            if (newVal > maxVal) {
+                newVal = maxVal;
+            }
         } else {
-            if (oldValue > 0) {
-                var newVal = parseFloat(oldValue) - 1;
-            } else {
-                newVal = 0;
+            newVal = oldValue - 1;
+            if (newVal < minVal) {
+                newVal = minVal;
             }
         }
-        button.parent().parent().find('input').val(newVal);
+
+        input.val(newVal);
+    });
+
+    $('input').on('input', function () {
+        var input = $(this);
+        var value = parseFloat(input.val());
+        var minVal = parseFloat(input.attr('min'));
+        var maxVal = parseFloat(input.attr('max'));
+
+        if (value < minVal) {
+            input.val(minVal);
+        } else if (value > maxVal) {
+            input.val(maxVal);
+        }
     });
 
 })(jQuery);

@@ -22,8 +22,13 @@ public class ProductController(IProductService productService,
         var getAllProduct = await _productService.GetAllProduct();
         return View(getAllProduct);
     }
-    
-    
+    public async Task<IActionResult> UnApprovedProduct()
+    {
+        var getAllProduct = await _productService.GetAllPendingProduct();
+        return View(getAllProduct);
+    }
+
+
     public async Task<IActionResult> CustomerProducts()
     {
         return View();
@@ -50,8 +55,13 @@ public class ProductController(IProductService productService,
     }
     
     [HttpPost("Product/UpdateProduct")]
-    public async Task<IActionResult> UpdateProduct(UpdateRequestModel requestModel)
+    public async Task<IActionResult> UpdateProduct(IFormFile file ,UpdateRequestModel requestModel)
     {
+        string filename = await _fileStorage.UploadToRootServerAsync(file, "Product");
+        if (filename != null)
+        {
+            requestModel.Image = filename;
+        }
         var updateProduct = await _productService.UpdateProduct(requestModel);
         if (!updateProduct.Status)
         {
@@ -68,5 +78,33 @@ public class ProductController(IProductService productService,
     {
         var res = await _productService.GetProduct(id);
         return View(res.Data);
+    }
+
+    [HttpGet("CustomerProductDetails/{id:guid}")]
+    public async Task<IActionResult> CustomerProductDetails([FromRoute] Guid id)
+    {
+        var res = await _productService.GetProduct(id);
+        return View(res.Data);
+    }
+    [HttpGet("GetProduct/{id:guid}")]
+    public async Task<IActionResult> GetProduct([FromRoute] Guid id)
+    {
+        var res = await _productService.GetProduct(id);
+        return View(res.Data);
+    }
+
+
+    [HttpPost("ApproveProduct/{id:guid}")]
+    public async Task<IActionResult> ApproveProduct([FromRoute] Guid id)
+    {
+        await _productService.ApproveProduct(id);
+        return RedirectToAction("UnApprovedProduct");
+    }
+
+    [HttpPost("RejectProduct/{id:guid}")]
+    public async Task<IActionResult> RejectProduct([FromRoute] Guid id)
+    {
+        await _productService.RejectProduct(id);
+        return RedirectToAction("UnApprovedProduct");
     }
 }

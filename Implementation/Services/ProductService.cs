@@ -88,7 +88,8 @@ public class ProductService(
                 QuantityAvailable = getProduct.QuantityAvailable,
                 ProductStatus = getProduct.ProductStatus,
                 Id = getProduct.Id,
-                Image = getProduct.Image
+                Image = getProduct.Image,
+                Status = getProduct.QuantityAvailable > 0 ? $"{getProduct.QuantityAvailable} Left" : "Out Of Stock"
             },
         };
     }
@@ -143,7 +144,32 @@ public class ProductService(
                 Price = x.Price,
                 QuantityAvailable = x.QuantityAvailable,
                 ProductStatus = x.ProductStatus,
-                Image = x.Image
+                Image = x.Image,
+                Status = x.QuantityAvailable > 0 ? $"{x.QuantityAvailable} Left" : "Out Of Stock"
+            }).ToList(),
+        };
+    }
+    public async Task<BaseResponse<IEnumerable<ProductDto>>> GetAllPendingProduct(string filter = null)
+    {
+        var getAllProducts =
+            await _productRepository.GetAllProductAsync(x => x.ProductStatus == ProductStatus.Pending &&  x.Name.Contains(filter) || filter == null);
+        return new BaseResponse<IEnumerable<ProductDto>>
+        {
+            Mesaage = "successful",
+            Status = true,
+            Data = getAllProducts.Select(x => new ProductDto()
+            {
+                Id = x.Id,
+                DisCount = x.DisCount,
+                Name = x.Name,
+                CategoryName = x.Category.Name,
+                CompanyName = x.Company.Name,
+                Description = x.Description,
+                Price = x.Price,
+                QuantityAvailable = x.QuantityAvailable,
+                ProductStatus = x.ProductStatus,
+                Image = x.Image,
+                Status = x.QuantityAvailable > 0 ? $"{x.QuantityAvailable} Left" : "Out Of Stock"
             }).ToList(),
         };
     }
@@ -167,16 +193,10 @@ public class ProductService(
             };
         }
 
-        var checkProductName = _productRepository.GetProduct(x => x.Name == updateRequestModel.Name);
-        if (checkProductName is not null)
+        if(getProduct.Image != null) 
         {
-            return new BaseResponse<ProductDto>
-            {
-                Mesaage = "product already exist",
-                Status = false,
-            };
+            getProduct.Image = updateRequestModel.Image;
         }
-
         getProduct.Description = updateRequestModel.Description ?? getProduct.Description;
         getProduct.Price = updateRequestModel.Price;
         getProduct.QuantityAvailable = getProduct.QuantityAvailable += updateRequestModel.QuantityAvailable;
@@ -185,6 +205,51 @@ public class ProductService(
         await _productRepository.SaveChangesAsync();
 
 
+        return new BaseResponse<ProductDto>
+        {
+            Mesaage = "successful",
+            Status = true,
+        };
+    }
+
+
+    public async Task<BaseResponse<ProductDto>> ApproveProduct(Guid productId)
+    {
+        var getProduct = await _productRepository.GetProduct(x => x.Id == productId);
+        if (getProduct is null)
+        {
+            return new BaseResponse<ProductDto>
+            {
+                Mesaage = "product does not  exist",
+                Status = false,
+            };
+        }
+
+        getProduct.ProductStatus = ProductStatus.Approved;
+        await _productRepository.UpdateAsync(getProduct);
+        await _productRepository.SaveChangesAsync();
+        return new BaseResponse<ProductDto>
+        {
+            Mesaage = "successful",
+            Status = true,
+        };
+    }
+
+    public async Task<BaseResponse<ProductDto>> RejectProduct(Guid productId)
+    {
+        var getProduct = await _productRepository.GetProduct(x => x.Id == productId);
+        if (getProduct is null)
+        {
+            return new BaseResponse<ProductDto>
+            {
+                Mesaage = "product does not  exist",
+                Status = false,
+            };
+        }
+
+        getProduct.ProductStatus = ProductStatus.Reject;
+        await _productRepository.UpdateAsync(getProduct);
+        await _productRepository.SaveChangesAsync();
         return new BaseResponse<ProductDto>
         {
             Mesaage = "successful",

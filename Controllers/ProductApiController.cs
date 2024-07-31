@@ -19,7 +19,8 @@ public class ProductApiController(IProductService productService) : ControllerBa
 		{
 			Products = product.Data,
 			TotalPages = product.TotalPage,
-			CurrentPage = page
-		});
+			CurrentPage = page,
+            totalCount = product.TotalCount,
+        });
     }
 }
